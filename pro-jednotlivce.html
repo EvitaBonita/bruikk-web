@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI kurzy pro jednotlivce – Bruikk</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+        /* ── SHARED ── */
+        .pj-section      { padding: 120px 0; }
+        .pj-section--alt { background: rgba(10,18,16,0.55); }
+
+        .pj-helper {
+            margin-top: 14px;
+            font-size: 0.82rem;
+            font-weight: 200;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* ── PRO KOHO – vertical list ── */
+        .pj-prokoho__list {
+            display: flex;
+            flex-direction: column;
+            max-width: 780px;
+        }
+
+        .pj-prokoho__item {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            transition: padding-left 0.2s;
+        }
+
+        .pj-prokoho__item:last-child { border-bottom: none; }
+        .pj-prokoho__item:hover      { padding-left: 6px; }
+
+        .pj-prokoho__icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            color: var(--teal);
+            margin-top: 3px;
+            opacity: 0.9;
+        }
+
+        .pj-prokoho__icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pj-prokoho__item p {
+            font-size: clamp(1.1rem, 2vw, 1.45rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+
+        .pj-prokoho__closing {
+            margin-top: 64px;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            font-weight: 800;
+            color: var(--teal);
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            max-width: 600px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .pj-prokoho__cta {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* ── JAK VÁS AI NAUČÍME – 2-col ── */
+        .pj-jak__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .pj-jak__image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .pj-jak__image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(42,226,210,0.08), transparent 60%);
+            pointer-events: none;
+        }
+
+        .pj-jak__image img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            filter: brightness(0.82) contrast(1.05);
+            display: block;
+        }
+
+        .pj-jak__content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .pj-jak__text {
+            font-size: clamp(1rem, 1.8vw, 1.15rem);
+            font-weight: 200;
+            color: var(--text-secondary);
+            line-height: 1.85;
+        }
+
+        .pj-jak__text strong {
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+
+        /* ── VARIANTY – cards ── */
+        .pj-varianty__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 56px;
+        }
+
+        .pj-card {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pj-card--featured {
+            border-color: rgba(42,226,210,0.28);
+            box-shadow:
+                inset 0 0 20px rgba(255,255,255,0.05),
+                0 8px 40px rgba(0,0,0,0.3),
+                0 0 40px rgba(42,226,210,0.09);
+        }
+
+        .pj-card__badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #0d1614;
+            background: var(--teal);
+            border-radius: 6px;
+            padding: 4px 10px;
+            margin-bottom: 24px;
+            align-self: flex-start;
+        }
+
+        .pj-card__tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--teal);
+            background: rgba(42,226,210,0.08);
+            border: 1px solid rgba(42,226,210,0.18);
+            border-radius: 6px;
+            padding: 4px 10px;
+            margin-bottom: 24px;
+            align-self: flex-start;
+        }
+
+        .pj-card h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .pj-card__subtitle {
+            font-size: 0.87rem;
+            font-weight: 200;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .pj-card__list {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .pj-card__list li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .pj-card__list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--teal);
+            opacity: 0.6;
+        }
+
+        .pj-card__footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 20px;
+            margin-top: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pj-card__meta {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .pj-card__meta span {
+            font-size: 0.82rem;
+            font-weight: 200;
+            color: var(--text-muted);
+        }
+
+        .pj-varianty__cta-row {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ── CO SI ODNESETE – split list ── */
+        .pj-odnesete__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .pj-odnesete__headline {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            line-height: 1.1;
+            position: sticky;
+            top: 120px;
+        }
+
+        .pj-odnesete__list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pj-odnesete__item {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            transition: padding-left 0.2s;
+        }
+
+        .pj-odnesete__item:first-child { padding-top: 0; }
+        .pj-odnesete__item:last-child  { border-bottom: none; }
+        .pj-odnesete__item:hover       { padding-left: 6px; }
+
+        .pj-odnesete__check {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            color: var(--teal);
+            margin-top: 3px;
+            opacity: 0.9;
+        }
+
+        .pj-odnesete__check svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pj-odnesete__item p {
+            font-size: clamp(1.1rem, 2vw, 1.45rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+
+        /* ── FINAL CTA ── */
+        .pj-cta {
+            padding: 120px 0;
+            background:
+                radial-gradient(ellipse at 60% 40%, rgba(42,226,210,0.07) 0%, transparent 55%),
+                rgba(10,18,16,0.5);
+        }
+
+        .pj-cta__inner {
+            max-width: 680px;
+        }
+
+        .pj-cta__title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .pj-cta__subtitle {
+            font-size: 1.05rem;
+            font-weight: 200;
+            color: var(--text-secondary);
+            margin-bottom: 52px;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .pj-jak__inner,
+            .pj-odnesete__inner { grid-template-columns: 1fr; gap: 52px; }
+            .pj-jak__image img  { height: 300px; }
+            .pj-odnesete__headline { position: static; }
+        }
+
+        @media (max-width: 768px) {
+            .pj-section          { padding: 80px 0; }
+            .pj-cta              { padding: 80px 0; }
+            .pj-varianty__grid   { grid-template-columns: 1fr; }
+            .pj-prokoho__cta     { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGACE -->
+    <nav class="nav" id="nav">
+        <div class="container nav__inner">
+            <a href="index.html" class="nav__logo">
+                <img src="logo.png" alt="Bruikk">
+            </a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html">Co vás naučíme</a></li>
+                <li><a href="pro-firmy.html">Pro firmy</a></li>
+                <li><a href="pro-jednotlivce.html">Pro jednotlivce</a></li>
+                <li><a href="index.html#reference">Reference</a></li>
+                <li><a href="#pj-kontakt" class="btn btn--nav" style="color:#000; font-weight:800;">Vybrat kurz</a></li>
+            </ul>
+            <button class="nav__toggle" id="navToggle" aria-label="Otevřít menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 1) HERO -->
+    <section class="hero" id="hero">
+        <div class="container hero__inner">
+            <div class="hero__content">
+                <h1 class="hero__title">Naučte se AI&nbsp;používat tak, aby vám šetřila čas</h1>
+                <p class="hero__subtitle">Žádná teorie navíc. Ukážeme vám, jak AI reálně používat v&nbsp;práci i&nbsp;podnikání.</p>
+                <div class="hero__cta">
+                    <a href="#pj-varianty" class="btn btn--primary btn--large">Vybrat kurz</a>
+                    <a href="#pj-kontakt" class="btn btn--secondary">Domluvit konzultaci</a>
+                </div>
+                <p class="pj-helper">Bez předchozích zkušeností</p>
+            </div>
+            <div class="hero__image">
+                <img src="images/3.png" alt="AI kurzy pro jednotlivce">
+            </div>
+        </div>
+    </section>
+
+    <!-- 2) PRO KOHO JE KURZ -->
+    <section class="pj-section pj-section--alt" id="pj-prokoho">
+        <div class="container">
+            <span class="eyebrow reveal">Pro koho</span>
+            <h2 class="section-title reveal">Kurz je pro vás, pokud…</h2>
+
+            <div class="pj-prokoho__list">
+
+                <div class="pj-prokoho__item reveal">
+                    <div class="pj-prokoho__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+                        </svg>
+                    </div>
+                    <p>chcete být rychlejší v práci</p>
+                </div>
+
+                <div class="pj-prokoho__item reveal reveal-delay-1">
+                    <div class="pj-prokoho__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <p>chcete mít náskok (ne dohánět ostatní)</p>
+                </div>
+
+                <div class="pj-prokoho__item reveal reveal-delay-2">
+                    <div class="pj-prokoho__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/>
+                        </svg>
+                    </div>
+                    <p>AI vás láká, ale nevíte, kde začít</p>
+                </div>
+
+                <div class="pj-prokoho__item reveal reveal-delay-3">
+                    <div class="pj-prokoho__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <p>už ji používáte, ale výsledky nejsou stabilní</p>
+                </div>
+
+            </div>
+
+            <div class="reveal">
+                <p class="pj-prokoho__closing">Naučíme vás AI používat tak, aby dávala smysl.</p>
+                <div class="pj-prokoho__cta">
+                    <a href="#pj-varianty" class="btn btn--primary">Vybrat kurz</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3) JAK VÁS AI NAUČÍME -->
+    <section class="pj-section" id="pj-jak">
+        <div class="container">
+            <div class="pj-jak__inner">
+                <div class="pj-jak__image reveal">
+                    <img src="images/18.png" alt="Jak vás AI naučíme">
+                </div>
+                <div class="pj-jak__content reveal reveal-delay-1">
+                    <span class="eyebrow">Náš přístup</span>
+                    <h2 class="section-title" style="margin-bottom: 24px;">Jak vás AI naučíme</h2>
+                    <p class="pj-jak__text">
+                        Učíme <strong>prakticky a krok za krokem</strong> — žádné přednášky, žádná zbytečná teorie. Každou lekci stavíme na situacích z reálné práce. Odcházíte s postupy, které <strong>začnete používat hned</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4) VARIANTY -->
+    <section class="pj-section pj-section--alt" id="pj-varianty">
+        <div class="container">
+            <span class="eyebrow reveal">Nabídka</span>
+            <h2 class="section-title reveal">Varianty</h2>
+            <div class="pj-varianty__grid">
+
+                <div class="pj-card glass-card pj-card--featured reveal">
+                    <span class="pj-card__badge">Nejoblíbenější</span>
+                    <h3>Veřejný živý kurz</h3>
+                    <p class="pj-card__subtitle">Praktické školení v malé skupině</p>
+                    <ul class="pj-card__list">
+                        <li>práce s AI nástroji (ChatGPT a další)</li>
+                        <li>tvorba promptů</li>
+                        <li>reálné scénáře z praxe</li>
+                    </ul>
+                    <div class="pj-card__footer">
+                        <div class="pj-card__meta">
+                            <span>📍 Brno / Praha / online</span>
+                            <span>⏱️ 12–16 hodin (bloky)</span>
+                        </div>
+                        <a href="#pj-kontakt" class="btn btn--primary" style="justify-content:center;">Vybrat kurz</a>
+                    </div>
+                </div>
+
+                <div class="pj-card glass-card reveal reveal-delay-1">
+                    <span class="pj-card__tag">Flexibilní</span>
+                    <h3>Online kurz (samostudium)</h3>
+                    <p class="pj-card__subtitle">Učte se vlastním tempem</p>
+                    <ul class="pj-card__list">
+                        <li>základy AI</li>
+                        <li>praktické použití</li>
+                        <li>šablony a návody</li>
+                    </ul>
+                    <div class="pj-card__footer">
+                        <div class="pj-card__meta">
+                            <span>🎥 přístup na X měsíců</span>
+                            <span>📦 bonus: prompty + checklisty</span>
+                        </div>
+                        <p style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal);">Připravujeme</p>
+                        <span class="btn btn--teal-ghost" style="justify-content:center; opacity: 0.35; cursor: not-allowed; pointer-events: none;">Začít studovat</span>
+                    </div>
+                </div>
+
+                <div class="pj-card glass-card reveal reveal-delay-2">
+                    <span class="pj-card__tag">Na míru</span>
+                    <h3>1:1 konzultace</h3>
+                    <p class="pj-card__subtitle">Pro ty, kdo chtějí jít rychle a na míru</p>
+                    <ul class="pj-card__list">
+                        <li>řešíme konkrétní situace z vaší práce</li>
+                    </ul>
+                    <div class="pj-card__footer">
+                        <div class="pj-card__meta">
+                            <span>📞 online nebo osobně</span>
+                            <span>⚡ rychlý start, okamžitý výsledek</span>
+                        </div>
+                        <a href="#pj-kontakt" class="btn btn--teal-ghost" style="justify-content:center;">Domluvit konzultaci</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6) CO SI ODNESETE -->
+    <section class="pj-section pj-section--alt" id="pj-odnesete">
+        <div class="container">
+            <div class="pj-odnesete__inner">
+
+                <div class="reveal">
+                    <span class="eyebrow">Výsledek</span>
+                    <h2 class="pj-odnesete__headline">Co si odnesete</h2>
+                </div>
+
+                <div class="pj-odnesete__list">
+
+                    <div class="pj-odnesete__item reveal">
+                        <div class="pj-odnesete__check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <p>konkrétní postupy, které začnete používat hned</p>
+                    </div>
+
+                    <div class="pj-odnesete__item reveal reveal-delay-1">
+                        <div class="pj-odnesete__check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <p>vlastní sadu promptů</p>
+                    </div>
+
+                    <div class="pj-odnesete__item reveal reveal-delay-2">
+                        <div class="pj-odnesete__check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <p>jistotu v práci s AI</p>
+                    </div>
+
+                    <div class="pj-odnesete__item reveal reveal-delay-3">
+                        <div class="pj-odnesete__check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <p>úsporu času při každodenních úkolech</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7) FINAL CTA + FORM -->
+    <section class="pj-cta" id="pj-kontakt">
+        <div class="container pj-cta__inner">
+            <h2 class="pj-cta__title reveal">Začněte s AI ještě dnes</h2>
+            <p class="pj-cta__subtitle reveal">Vyplňte krátký formulář a ozveme se vám.</p>
+
+            <form class="form reveal" id="pjForm" novalidate>
+
+                <div class="form__group">
+                    <label class="form__label" for="pj-jmeno">Jméno <span class="form__required">*</span></label>
+                    <input class="form__input" type="text" id="pj-jmeno" name="jmeno" placeholder="Vaše jméno" required autocomplete="name">
+                    <span class="form__error" id="pj-jmeno-error">Vyplňte prosím jméno.</span>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="pj-email">E-mail <span class="form__required">*</span></label>
+                    <input class="form__input" type="email" id="pj-email" name="email" placeholder="vas@email.cz" required autocomplete="email">
+                    <span class="form__error" id="pj-email-error">Zadejte platnou e-mailovou adresu.</span>
+                </div>
+
+                <div class="form__group">
+                    <label class="form__label" for="pj-zprava">Zpráva <span class="form__required">*</span></label>
+                    <textarea class="form__input form__textarea" id="pj-zprava" name="zprava" placeholder="Napište nám..." required></textarea>
+                    <span class="form__error" id="pj-zprava-error">Vyplňte prosím zprávu.</span>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--large">Přihlásit se na kurz</button>
+
+                <div class="form__success" id="pjFormSuccess" hidden>
+                    Zpráva byla úspěšně odeslána. Brzy se vám ozveme.
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <img src="logo.png" alt="Bruikk" class="footer__logo">
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealEls.forEach(el => observer.observe(el));
+
+        // Form validation
+        const pjForm    = document.getElementById('pjForm');
+        const pjSuccess = document.getElementById('pjFormSuccess');
+
+        function pjSetError(inputId, errorId, show) {
+            const input = document.getElementById(inputId);
+            const error = document.getElementById(errorId);
+            input.classList.toggle('is-error', show);
+            error.classList.toggle('is-visible', show);
+        }
+
+        ['pj-jmeno', 'pj-email', 'pj-zprava'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                if (document.getElementById(id).value.trim()) pjSetError(id, `${id}-error`, false);
+            });
+        });
+
+        pjForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const jmeno  = document.getElementById('pj-jmeno').value.trim();
+            const email  = document.getElementById('pj-email').value.trim();
+            const zprava = document.getElementById('pj-zprava').value.trim();
+            const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            pjSetError('pj-jmeno',  'pj-jmeno-error',  !jmeno);
+            pjSetError('pj-email',  'pj-email-error',  !email || !emailOk);
+            pjSetError('pj-zprava', 'pj-zprava-error', !zprava);
+
+            if (!jmeno || !zprava || !email || !emailOk) return;
+
+            pjForm.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => el.disabled = true);
+            pjSuccess.removeAttribute('hidden');
+            pjSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
