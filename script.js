@@ -86,11 +86,29 @@ form.addEventListener('submit', (e) => {
 
     if (!isValid) return;
 
-    // Success
-    form.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => {
-        el.disabled = true;
-    });
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const formStatus = document.getElementById('form-status');
+    submitBtn.disabled = true;
 
-    formSuccess.removeAttribute('hidden');
-    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+        if (response.ok) {
+            form.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => {
+                el.disabled = true;
+            });
+            formSuccess.removeAttribute('hidden');
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+            formStatus.textContent = 'Nastala chyba. Zkuste to prosím znovu.';
+            submitBtn.disabled = false;
+        }
+    })
+    .catch(() => {
+        formStatus.textContent = 'Nastala chyba. Zkuste to prosím znovu.';
+        submitBtn.disabled = false;
+    });
 });

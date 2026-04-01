@@ -250,7 +250,9 @@
             <h2 class="cta-blok__title">Chcete začít s AI smysluplně?</h2>
             <p class="cta-blok__subtitle">Vyplňte krátký formulář a ozveme se vám.</p>
 
-            <form class="form" id="kontaktForm" novalidate>
+            <form class="form" id="kontaktForm" method="POST" action="https://formspree.io/f/mykbpjnz" novalidate>
+
+                <input type="text" name="_gotcha" style="display:none">
 
                 <div class="form__group">
                     <label class="form__label">Typ zájmu</label>
@@ -270,7 +272,7 @@
 
                 <div class="form__group">
                     <label class="form__label" for="jmeno">Jméno <span class="form__required">*</span></label>
-                    <input class="form__input" type="text" id="jmeno" name="jmeno" placeholder="Vaše jméno" required autocomplete="name">
+                    <input class="form__input" type="text" id="jmeno" name="name" placeholder="Vaše jméno" required autocomplete="name">
                     <span class="form__error" id="jmeno-error">Vyplňte prosím jméno.</span>
                 </div>
 
@@ -282,7 +284,7 @@
 
                 <div class="form__group">
                     <label class="form__label" for="zprava">Zpráva <span class="form__required">*</span></label>
-                    <textarea class="form__input form__textarea" id="zprava" name="zprava" placeholder="Napište nám..." required></textarea>
+                    <textarea class="form__input form__textarea" id="zprava" name="message" placeholder="Napište nám..." required></textarea>
                     <span class="form__error" id="zprava-error">Vyplňte prosím zprávu.</span>
                 </div>
 
@@ -291,6 +293,7 @@
                 <div class="form__success" id="formSuccess" hidden>
                     Zpráva byla úspěšně odeslána. Brzy se vám ozveme.
                 </div>
+                <p id="form-status"></p>
 
             </form>
         </div>

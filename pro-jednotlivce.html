@@ -588,11 +588,13 @@
             <h2 class="pj-cta__title reveal">Začněte s AI ještě dnes</h2>
             <p class="pj-cta__subtitle reveal">Vyplňte krátký formulář a ozveme se vám.</p>
 
-            <form class="form reveal" id="pjForm" novalidate>
+            <form class="form reveal" id="pjForm" method="POST" action="https://formspree.io/f/mykbpjnz" novalidate>
+
+                <input type="text" name="_gotcha" style="display:none">
 
                 <div class="form__group">
                     <label class="form__label" for="pj-jmeno">Jméno <span class="form__required">*</span></label>
-                    <input class="form__input" type="text" id="pj-jmeno" name="jmeno" placeholder="Vaše jméno" required autocomplete="name">
+                    <input class="form__input" type="text" id="pj-jmeno" name="name" placeholder="Vaše jméno" required autocomplete="name">
                     <span class="form__error" id="pj-jmeno-error">Vyplňte prosím jméno.</span>
                 </div>
 
@@ -604,7 +606,7 @@
 
                 <div class="form__group">
                     <label class="form__label" for="pj-zprava">Zpráva <span class="form__required">*</span></label>
-                    <textarea class="form__input form__textarea" id="pj-zprava" name="zprava" placeholder="Napište nám..." required></textarea>
+                    <textarea class="form__input form__textarea" id="pj-zprava" name="message" placeholder="Napište nám..." required></textarea>
                     <span class="form__error" id="pj-zprava-error">Vyplňte prosím zprávu.</span>
                 </div>
 
@@ -613,6 +615,7 @@
                 <div class="form__success" id="pjFormSuccess" hidden>
                     Zpráva byla úspěšně odeslána. Brzy se vám ozveme.
                 </div>
+                <p id="pj-form-status"></p>
 
             </form>
         </div>
@@ -668,9 +671,29 @@
 
             if (!jmeno || !zprava || !email || !emailOk) return;
 
-            pjForm.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => el.disabled = true);
-            pjSuccess.removeAttribute('hidden');
-            pjSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const pjSubmitBtn  = pjForm.querySelector('button[type="submit"]');
+            const pjFormStatus = document.getElementById('pj-form-status');
+            pjSubmitBtn.disabled = true;
+
+            fetch(pjForm.action, {
+                method: 'POST',
+                body: new FormData(pjForm),
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    pjForm.querySelectorAll('input, textarea, button[type="submit"]').forEach(el => el.disabled = true);
+                    pjSuccess.removeAttribute('hidden');
+                    pjSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else {
+                    pjFormStatus.textContent = 'Nastala chyba. Zkuste to prosím znovu.';
+                    pjSubmitBtn.disabled = false;
+                }
+            })
+            .catch(() => {
+                pjFormStatus.textContent = 'Nastala chyba. Zkuste to prosím znovu.';
+                pjSubmitBtn.disabled = false;
+            });
         });
     </script>
 </body>
