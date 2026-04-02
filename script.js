@@ -1,4 +1,21 @@
 // =========================================
+// SCROLL REVEAL
+// =========================================
+
+const revealElements = document.querySelectorAll('.reveal');
+if (revealElements.length) {
+    const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                revealObserver.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    revealElements.forEach(el => revealObserver.observe(el));
+}
+
+// =========================================
 // MOBILE NAV TOGGLE
 // =========================================
 

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ochrana osobních údajů – Bruikk</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gdpr-section {
+            padding: 120px 0;
+        }
+
+        .gdpr__inner {
+            max-width: 760px;
+        }
+
+        .gdpr__eyebrow {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--teal);
+            opacity: 0.8;
+            margin-bottom: 16px;
+        }
+
+        .gdpr__title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: 64px;
+        }
+
+        .gdpr__block {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gdpr__block:last-child {
+            border-bottom: none;
+        }
+
+        .gdpr__block h2 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .gdpr__block p {
+            font-size: 0.95rem;
+            font-weight: 200;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .gdpr__block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .gdpr__block ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .gdpr__block ul li {
+            font-size: 0.95rem;
+            font-weight: 200;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .gdpr__block ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--teal);
+            opacity: 0.7;
+        }
+
+        .gdpr__block address {
+            font-style: normal;
+            font-size: 0.95rem;
+            font-weight: 200;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .gdpr__block a {
+            color: var(--teal);
+            transition: opacity 0.2s;
+        }
+
+        .gdpr__block a:hover {
+            opacity: 0.75;
+        }
+
+        .gdpr__note {
+            margin-top: 8px;
+            font-size: 0.88rem;
+            font-weight: 200;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGACE -->
+    <nav class="nav" id="nav">
+        <div class="container nav__inner">
+            <a href="index.html" class="nav__logo">
+                <img src="logo.png" alt="Bruikk">
+            </a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="index.html">Co vás naučíme</a></li>
+                <li><a href="pro-firmy.html">Pro firmy</a></li>
+                <li><a href="pro-jednotlivce.html">Pro jednotlivce</a></li>
+                <li><a href="index.html#reference">Reference</a></li>
+                <li><a href="index.html#kontakt" class="btn btn--nav">Domluvit konzultaci</a></li>
+            </ul>
+            <button class="nav__toggle" id="navToggle" aria-label="Otevřít menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="gdpr-section">
+        <div class="container gdpr__inner">
+
+            <span class="gdpr__eyebrow">Právní informace</span>
+            <h1 class="gdpr__title">Ochrana osobních údajů (GDPR)</h1>
+
+            <div class="gdpr__block">
+                <h2>1. Správce osobních údajů</h2>
+                <p>Správcem osobních údajů je:</p>
+                <address>
+                    Bruikk s.r.o.<br>
+                    IČO: 28598059<br>
+                    Sídlo: Zahradní 2004/46D, 792 01 Bruntál<br>
+                    E-mail: <a href="mailto:info@bruikk.cz">info@bruikk.cz</a>
+                </address>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>2. Jaké údaje zpracováváme</h2>
+                <p>Zpracováváme pouze údaje, které nám sami poskytnete prostřednictvím formuláře:</p>
+                <ul>
+                    <li>jméno</li>
+                    <li>e-mailová adresa</li>
+                    <li>obsah zprávy</li>
+                </ul>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>3. Za jakým účelem údaje zpracováváme</h2>
+                <p>Vaše osobní údaje zpracováváme za účelem:</p>
+                <ul>
+                    <li>odpovědi na vaši poptávku</li>
+                    <li>následné komunikace</li>
+                </ul>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>4. Právní základ zpracování</h2>
+                <p>Zpracování probíhá na základě:</p>
+                <ul>
+                    <li>oprávněného zájmu (odpověď na poptávku)</li>
+                    <li>nebo vašeho souhlasu (odesláním formuláře)</li>
+                </ul>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>5. Doba uchování údajů</h2>
+                <p>Osobní údaje uchováváme po dobu nezbytně nutnou, maximálně však:</p>
+                <ul>
+                    <li>12 měsíců od poslední komunikace</li>
+                </ul>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>6. Kdo má k údajům přístup</h2>
+                <p>K vašim údajům mají přístup:</p>
+                <ul>
+                    <li>správce (Bruikk s.r.o.)</li>
+                    <li>zpracovatelé technického řešení webu a formulářů (např. Formspree)</li>
+                </ul>
+                <p class="gdpr__note">Vaše údaje nejsou poskytovány třetím stranám za účelem marketingu.</p>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>7. Vaše práva</h2>
+                <p>Máte právo:</p>
+                <ul>
+                    <li>požadovat přístup ke svým údajům</li>
+                    <li>požadovat opravu nebo výmaz</li>
+                    <li>omezit zpracování</li>
+                    <li>podat stížnost u dozorového úřadu</li>
+                </ul>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>8. Zabezpečení údajů</h2>
+                <p>Vaše údaje chráníme pomocí odpovídajících technických a organizačních opatření.</p>
+            </div>
+
+            <div class="gdpr__block">
+                <h2>9. Cookies</h2>
+                <p>Web může používat cookies za účelem:</p>
+                <ul>
+                    <li>analytiky (např. Google Analytics)</li>
+                    <li>zlepšení fungování webu</li>
+                </ul>
+                <p>Používání cookies můžete ovlivnit ve svém prohlížeči.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer__inner">
+
+            <div class="footer__col">
+                <img src="logo.png" alt="Bruikk" class="footer__logo">
+                <address>
+                    Bruikk s.r.o.<br>
+                    IČO: 28598059<br>
+                    Zahradní 2004/46D<br>
+                    792 01 Bruntál
+                </address>
+            </div>
+
+            <div class="footer__col">
+                <span class="footer__col-title">Kontakt</span>
+                <a href="mailto:info@bruikk.cz">info@bruikk.cz</a>
+            </div>
+
+            <div class="footer__col">
+                <span class="footer__col-title">Právní informace</span>
+                <a href="gdpr.html">Ochrana osobních údajů</a>
+                <a href="#">Obchodní podmínky</a>
+            </div>
+
+        </div>
+        <div class="footer__bottom">
+            <div class="container">
+                <p>© 2026 Bruikk s.r.o.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
